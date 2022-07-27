@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import BarChart from "./components/BarChart";
+import PieChart from "./components/PieChart";
+import LineChart from "./components/LineChart";
+import { data } from "./data/datos";
+
+const options = {
+  elements: { bar: { borderWidth: 2 } },
+  responsive: true,
+  plugins: {
+    legend: { position: "rigth" },
+    title: { display: true },
+  },
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    data && (
+      <div className="App container">
+        <div className="row d-flex">
+          {data.map((item, index) => (
+            <div key={index} className="col-md-4">
+              {item.type === "bar" ? (
+                <BarChart
+                  chartData={item.data}
+                  options={options}
+                  title={item.title}
+                />
+              ) : item.type === "pie" ? (
+                <PieChart
+                  chartData={item.data}
+                  options={options}
+                  title={item.title}
+                />
+              ) : (
+                <LineChart
+                  chartData={item.data}
+                  options={options}
+                  title={item.title}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   );
 }
 
