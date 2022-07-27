@@ -43,6 +43,7 @@ function BarChart({ chartData, options, title }) {
         borderWidth: 2,
       },
     ],
+    backgroundColor: "red",
   });
 
   return (

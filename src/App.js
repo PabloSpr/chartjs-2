@@ -9,7 +9,7 @@ const options = {
   responsive: true,
   plugins: {
     legend: { position: "rigth" },
-    title: { display: true },
+    title: { display: true, text: "graficas de prueba" },
   },
 };
 
@@ -18,8 +18,8 @@ function App() {
     data && (
       <div className="App container">
         <div className="row d-flex">
-          {data.map((item, index) => (
-            <div key={index} className="col-md-4">
+          {data.map((item) => (
+            <div key={item.name} className="col-md-4">
               {item.type === "bar" ? (
                 <BarChart
                   chartData={item.data}
