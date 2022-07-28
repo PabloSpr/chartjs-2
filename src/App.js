@@ -20,7 +20,7 @@ function App() {
         <div className="row d-flex">
           {data.map((item) => (
             <div key={item.name} className="col-md-4">
-              <div className="card m-2">
+              <div className="card my-2">
                 <div className="card-header">{item.name}</div>
                 <div className="card-body">
                   {item.type === "bar" ? (
