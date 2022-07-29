@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useDrag } from "react-dnd";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -25,7 +26,14 @@ ChartJS.register(
   LineElement
 );
 
-function LineChart({ chartData, options, title }) {
+function LineChart({ chartData, options, title, id, name }) {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "chart",
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   const [userData, setUserData] = useState({
     labels: chartData && chartData.map((data) => data.year),
     datasets: [
@@ -47,8 +55,16 @@ function LineChart({ chartData, options, title }) {
 
   return (
     userData && (
-      <div>
-        <Line data={userData} options={options} />
+      <div
+        id={id}
+        ref={drag}
+        className="card mt-3 border-1"
+        style={{ background: isDragging ? "pink" : "" }}
+      >
+        <div className="card-header">{name}</div>
+        <div className="card-body">
+          <Line data={userData} options={options} />
+        </div>
       </div>
     )
   );
